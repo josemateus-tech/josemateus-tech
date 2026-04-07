@@ -3,412 +3,390 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Departamento de Computação - DCOM - IFMT Campus Cuiabá</title>
+    <title>DCOM - Departamento de Computação | IFMT Campus Cuiabá</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --ifmt-green: #006b3c;
-            --ifmt-dark: #1a472a;
-            --ifmt-gold: #d4af37;
+        * { font-family: 'Inter', sans-serif; }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1a1a2e; }
+        ::-webkit-scrollbar-thumb { background: #4361ee; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3a56d4; }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
-        
-        html {
-            scroll-behavior: smooth;
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-40px); }
+            to { opacity: 1; transform: translateX(0); }
         }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8fafc;
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(67, 97, 238, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(67, 97, 238, 0.6); }
         }
-        
-        .hero {
-            background: linear-gradient(135deg, var(--ifmt-green) 0%, var(--ifmt-dark) 100%);
-            color: white;
-            padding: 80px 20px;
+        .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+        .animate-fade-in { animation: fadeIn 0.6s ease-out forwards; }
+        .animate-slide-left { animation: slideInLeft 0.8s ease-out forwards; }
+        .pulse-glow { animation: pulse-glow 3s infinite; }
+
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+
+        /* Hero background */
+        .hero-bg {
+            background: linear-gradient(135deg, #0f0c29 0%, #1a1a3e 30%, #24243e 60%, #0f0c29 100%);
             position: relative;
             overflow: hidden;
         }
-        
-        .hero::before {
+        .hero-bg::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(67, 97, 238, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(114, 9, 183, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 80%, rgba(76, 201, 240, 0.08) 0%, transparent 50%);
+            z-index: 0;
         }
-        
-        .hero-content {
-            position: relative;
-            z-index: 1;
+        .hero-bg > * { position: relative; z-index: 1; }
+
+        /* Grid pattern */
+        .grid-pattern {
+            background-image: 
+                linear-gradient(rgba(67, 97, 238, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(67, 97, 238, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
         }
-        
-        .logo-placeholder {
-            width: 280px;
-            height: 120px;
-            background: white;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+
+        /* Glass effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
-        
-        .logo-placeholder span {
-            color: var(--ifmt-green);
-            font-size: 24px;
-            font-weight: bold;
-            text-align: center;
-        }
-        
-        .section-title {
-            color: var(--ifmt-green);
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 15px;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 80px;
-            height: 4px;
-            background: var(--ifmt-gold);
-            border-radius: 2px;
-        }
-        
-        .card {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-        }
-        
-        .table-container {
-            overflow-x: auto;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-        }
-        
+
+        /* Table styles */
         .custom-table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0;
         }
-        
-        .custom-table th {
-            background: var(--ifmt-green);
+        .custom-table thead th {
+            background: linear-gradient(135deg, #4361ee, #7209b5);
             color: white;
-            padding: 15px;
-            text-align: left;
+            padding: 14px 16px;
             font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
-        
-        .custom-table td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #e2e8f0;
+        .custom-table thead th:first-child { border-radius: 12px 0 0 0; }
+        .custom-table thead th:last-child { border-radius: 0 12px 0 0; }
+        .custom-table tbody td {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 0.85rem;
+            color: #c4c4d4;
         }
-        
-        .custom-table tr:hover {
-            background: #f1f5f9;
+        .custom-table tbody tr {
+            transition: all 0.3s ease;
         }
-        
-        .custom-table tr:last-child td {
-            border-bottom: none;
+        .custom-table tbody tr:hover {
+            background: rgba(67, 97, 238, 0.08);
         }
-        
-        .contact-info {
-            background: linear-gradient(135deg, var(--ifmt-green) 0%, var(--ifmt-dark) 100%);
-            color: white;
-            padding: 40px;
-            border-radius: 12px;
+        .custom-table tbody tr:last-child td:first-child { border-radius: 0 0 0 12px; }
+        .custom-table tbody tr:last-child td:last-child { border-radius: 0 0 12px 0; }
+
+        /* Accordion */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
         }
-        
-        .contact-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
+        .accordion-content.open {
+            max-height: 2000px;
         }
-        
-        .contact-item i {
-            width: 50px;
-            height: 50px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            font-size: 20px;
-        }
-        
-        .faculty-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        
-        .faculty-card {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            border-left: 4px solid var(--ifmt-green);
-        }
-        
-        .faculty-card .title {
-            color: var(--ifmt-gold);
-            font-weight: bold;
-            font-size: 14px;
-        }
-        
-        .faculty-card .name {
-            color: var(--ifmt-dark);
-            font-weight: 600;
-            margin: 5px 0;
-        }
-        
-        .faculty-card .email {
-            color: #64748b;
-            font-size: 14px;
-        }
-        
-        .nav-toggle {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: var(--ifmt-green);
+        .accordion-header {
             cursor: pointer;
+            transition: all 0.3s ease;
         }
-        
-        .mobile-menu {
-            display: none;
-            position: fixed;
-            top: 70px;
-            left: 0;
-            right: 0;
-            background: white;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            padding: 20px;
-            z-index: 999;
+        .accordion-header:hover {
+            background: rgba(67, 97, 238, 0.1);
         }
-        
-        .mobile-menu.active {
-            display: block;
+        .accordion-arrow {
+            transition: transform 0.3s ease;
         }
-        
-        .mobile-menu a {
-            display: block;
-            padding: 12px;
-            color: var(--ifmt-dark);
-            text-decoration: none;
-            border-bottom: 1px solid #e2e8f0;
+        .accordion-arrow.rotated {
+            transform: rotate(180deg);
         }
-        
-        .mobile-menu a:hover {
-            background: #f1f5f9;
+
+        /* Navbar */
+        .navbar {
+            transition: all 0.3s ease;
         }
-        
-        footer {
-            background: var(--ifmt-dark);
-            color: white;
-            padding: 40px 20px 20px;
-            margin-top: 60px;
+        .navbar.scrolled {
+            background: rgba(15, 12, 41, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
         }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
+
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.3;
         }
-        
-        .footer-section h3 {
-            color: var(--ifmt-gold);
-            margin-bottom: 15px;
+
+        /* Card hover */
+        .card-hover {
+            transition: all 0.4s ease;
         }
-        
-        .footer-section a {
-            color: white;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 8px;
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(67, 97, 238, 0.15);
+            border-color: rgba(67, 97, 238, 0.3);
         }
-        
-        .footer-section a:hover {
-            color: var(--ifmt-gold);
-        }
-        
-        .copyright {
-            text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 14px;
-        }
-        
-        @media (max-width: 768px) {
-            .nav-toggle {
-                display: block;
-            }
-            
-            .desktop-nav {
-                display: none;
-            }
-            
-            .hero {
-                padding: 60px 20px;
-            }
-            
-            .section-title {
-                font-size: 1.8rem;
-            }
-            
-            .faculty-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .fade-in {
+
+        /* Section reveal */
+        .reveal {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
         }
-        
-        .fade-in.visible {
+        .reveal.visible {
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Smooth scroll */
+        html { scroll-behavior: smooth; }
+
+        /* Mobile menu */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        /* Professor table */
+        .prof-table thead th {
+            font-size: 0.75rem;
+        }
+        .prof-table tbody td {
+            font-size: 0.82rem;
+        }
     </style>
 </head>
-<body>
-    <!-- Header -->
-    <header class="bg-white shadow-md sticky top-0 z-1000">
-        <nav class="max-w-7xl mx-auto px-4 py-4">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center">
-                    <div class="w-12 h-12 bg-green-700 rounded-full flex items-center justify-center mr-3">
-                        <i class="fas fa-university text-white text-xl"></i>
-                    </div>
-                    <div>
-                        <h1 class="text-xl font-bold text-green-800">IFMT</h1>
-                        <p class="text-sm text-gray-600">Campus Cuiabá</p>
-                    </div>
+<body class="bg-[#0f0c29] text-white">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="navbar fixed top-0 left-0 right-0 z-50 px-4 py-4">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-[#4361ee] to-[#7209b5] flex items-center justify-center font-bold text-lg pulse-glow">
+                    D
                 </div>
-                
-                <button class="nav-toggle" onclick="toggleMenu()">
-                    <i class="fas fa-bars"></i>
-                </button>
-                
-                <div class="desktop-nav hidden md:flex space-x-6">
-                    <a href="#inicio" class="text-green-700 hover:text-green-900 font-medium">Início</a>
-                    <a href="#sobre" class="text-green-700 hover:text-green-900 font-medium">Sobre</a>
-                    <a href="#equipe" class="text-green-700 hover:text-green-900 font-medium">Equipe</a>
-                    <a href="#cursos" class="text-green-700 hover:text-green-900 font-medium">Cursos</a>
-                    <a href="#docentes" class="text-green-700 hover:text-green-900 font-medium">Docentes</a>
-                    <a href="#contato" class="text-green-700 hover:text-green-900 font-medium">Contato</a>
+                <div>
+                    <span class="text-lg font-bold bg-gradient-to-r from-[#4cc9f0] to-[#4361ee] bg-clip-text text-transparent">DCOM</span>
+                    <span class="hidden sm:inline text-xs text-gray-400 ml-2">Departamento de Computação</span>
                 </div>
+            </a>
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-1">
+                <a href="#sobre" class="px-4 py-2 text-sm text-gray-300 hover:text-white rounded-lg hover:bg-white/5 transition-all">Sobre</a>
+                <a href="#contato" class="px-4 py-2 text-sm text-gray-300 hover:text-white rounded-lg hover:bg-white/5 transition-all">Contato</a>
+                <a href="#equipe" class="px-4 py-2 text-sm text-gray-300 hover:text-white rounded-lg hover:bg-white/5 transition-all">Equipe</a>
+                <a href="#cursos" class="px-4 py-2 text-sm text-gray-300 hover:text-white rounded-lg hover:bg-white/5 transition-all">Cursos</a>
+                <a href="#professores" class="px-4 py-2 text-sm text-gray-300 hover:text-white rounded-lg hover:bg-white/5 transition-all">Professores</a>
             </div>
-        </nav>
-        
-        <!-- Mobile Menu -->
-        <div class="mobile-menu" id="mobileMenu">
-            <a href="#inicio" onclick="toggleMenu()">Início</a>
-            <a href="#sobre" onclick="toggleMenu()">Sobre</a>
-            <a href="#equipe" onclick="toggleMenu()">Equipe</a>
-            <a href="#cursos" onclick="toggleMenu()">Cursos</a>
-            <a href="#docentes" onclick="toggleMenu()">Docentes</a>
-            <a href="#contato" onclick="toggleMenu()">Contato</a>
+            <!-- Mobile Menu Button -->
+            <button id="menuBtn" class="md:hidden flex flex-col gap-1.5 p-2" onclick="toggleMenu()">
+                <span class="w-6 h-0.5 bg-white transition-all" id="menuLine1"></span>
+                <span class="w-6 h-0.5 bg-white transition-all" id="menuLine2"></span>
+                <span class="w-4 h-0.5 bg-white transition-all" id="menuLine3"></span>
+            </button>
         </div>
-    </header>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 bottom-0 w-72 bg-[#1a1a3e]/95 backdrop-blur-xl z-50 p-8 pt-20">
+        <button onclick="toggleMenu()" class="absolute top-5 right-5 text-gray-400 hover:text-white">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+        <div class="flex flex-col gap-2">
+            <a href="#sobre" onclick="toggleMenu()" class="px-4 py-3 text-gray-300 hover:text-white rounded-lg hover:bg-white/10 transition-all">Sobre</a>
+            <a href="#contato" onclick="toggleMenu()" class="px-4 py-3 text-gray-300 hover:text-white rounded-lg hover:bg-white/10 transition-all">Contato</a>
+            <a href="#equipe" onclick="toggleMenu()" class="px-4 py-3 text-gray-300 hover:text-white rounded-lg hover:bg-white/10 transition-all">Equipe</a>
+            <a href="#cursos" onclick="toggleMenu()" class="px-4 py-3 text-gray-300 hover:text-white rounded-lg hover:bg-white/10 transition-all">Cursos</a>
+            <a href="#professores" onclick="toggleMenu()" class="px-4 py-3 text-gray-300 hover:text-white rounded-lg hover:bg-white/10 transition-all">Professores</a>
+        </div>
+    </div>
 
     <!-- Hero Section -->
-    <section id="inicio" class="hero">
-        <div class="hero-content text-center max-w-4xl mx-auto">
-            <div class="logo-placeholder">
-                <span>LOGO DCOM</span>
-            </div>
-            <h2 class="text-4xl md:text-5xl font-bold mb-4">Departamento de Computação</h2>
-            <p class="text-xl opacity-90 mb-6">Instituto Federal de Educação, Ciência e Tecnologia de Mato Grosso</p>
-            <div class="flex flex-wrap justify-center gap-4">
-                <a href="#cursos" class="bg-white text-green-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
-                    <i class="fas fa-graduation-cap mr-2"></i>Nossos Cursos
-                </a>
-                <a href="#contato" class="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-green-700 transition">
-                    <i class="fas fa-envelope mr-2"></i>Entre em Contato
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Sobre Section -->
-    <section id="sobre" class="py-16 bg-white">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="section-title">Sobre o Departamento</h2>
-            <div class="grid md:grid-cols-2 gap-8 items-center">
-                <div class="fade-in">
-                    <p class="text-gray-700 text-lg leading-relaxed mb-6">
-                        O Departamento de Computação do Instituto Federal de Educação, Ciência e Tecnologia de Mato Grosso oferece uma variedade de cursos de graduação para aqueles que desejam seguir carreira na área de computação.
-                    </p>
-                    <p class="text-gray-700 text-lg leading-relaxed mb-6">
-                        Entre os cursos disponíveis estão o Bacharelado em Engenharia da Computação, o Tecnólogo em Desenvolvimento de Sistemas para Internet, o Tecnólogo em Redes de Computadores e o Técnico em Informática integrado ao Ensino Médio.
-                    </p>
-                    <p class="text-gray-700 text-lg leading-relaxed">
-                        Esses cursos proporcionam uma formação abrangente e atualizada, preparando os estudantes para atuarem em diferentes campos e desafios da computação. O Departamento de Computação valoriza o ensino de qualidade, a prática laboratorial e o desenvolvimento de habilidades técnicas e analíticas.
-                    </p>
+    <section class="hero-bg min-h-screen flex items-center pt-20 grid-pattern">
+        <div class="max-w-7xl mx-auto px-4 py-20 w-full">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="flex-shrink-0 animate-fade-in-up">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-gradient-to-br from-[#4361ee]/20 to-[#7209b5]/20 rounded-3xl blur-2xl"></div>
+                        <img src="img/logo-dcom.png" alt="Logo DCOM"> 
+                       
                 </div>
-                <div class="fade-in">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="card p-6 text-center">
-                            <i class="fas fa-graduation-cap text-4xl text-green-600 mb-3"></i>
-                            <h3 class="font-bold text-2xl text-green-700">4+</h3>
-                            <p class="text-gray-600">Cursos</p>
-                        </div>
-                        <div class="card p-6 text-center">
-                            <i class="fas fa-chalkboard-teacher text-4xl text-green-600 mb-3"></i>
-                            <h3 class="font-bold text-2xl text-green-700">30+</h3>
-                            <p class="text-gray-600">Docentes</p>
-                        </div>
-                        <div class="card p-6 text-center">
-                            <i class="fas fa-users text-4xl text-green-600 mb-3"></i>
-                            <h3 class="font-bold text-2xl text-green-700">500+</h3>
-                            <p class="text-gray-600">Alunos</p>
-                        </div>
-                        <div class="card p-6 text-center">
-                            <i class="fas fa-trophy text-4xl text-green-600 mb-3"></i>
-                            <h3 class="font-bold text-2xl text-green-700">Excelência</h3>
-                            <p class="text-gray-600">Ensino</p>
-                        </div>
+                <div class="flex-1 text-center lg:text-left">
+                    <div class="animate-fade-in-up delay-200">
+                        <span class="inline-block px-4 py-1.5 rounded-full text-xs font-semibold bg-[#4361ee]/20 text-[#4cc9f0] border border-[#4361ee]/30 mb-6">
+                            IFMT Campus Cuiabá — Cel. Octayde Jorge da Silva
+                        </span>
+                    </div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-black mb-6 animate-fade-in-up delay-300">
+                        Departamento de<br>
+                        <span class="bg-gradient-to-r from-[#4cc9f0] via-[#4361ee] to-[#7209b5] bg-clip-text text-transparent">Computação</span>
+                    </h1>
+                    <p class="text-gray-400 text-lg md:text-xl leading-relaxed max-w-2xl animate-fade-in-up delay-400">
+                        Formando profissionais de excelência em Engenharia da Computação, Sistemas para Internet, Redes de Computadores e Informática.
+                    </p>
+                    <div class="flex flex-wrap gap-4 mt-8 justify-center lg:justify-start animate-fade-in-up delay-500">
+                        <a href="#sobre" class="px-8 py-3 bg-gradient-to-r from-[#4361ee] to-[#7209b5] rounded-xl font-semibold hover:opacity-90 transition-all hover:scale-105 shadow-lg shadow-[#4361ee]/25">
+                            Saiba Mais
+                        </a>
+                        <a href="#contato" class="px-8 py-3 glass rounded-xl font-semibold hover:bg-white/10 transition-all">
+                            Contato
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+        </div>
     </section>
 
-    <!-- Equipe Administrativa Section -->
-    <section id="equipe" class="py-16 bg-gray-50">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="section-title">Equipe Administrativa</h2>
-            <div class="table-container fade-in">
+    <!-- About Section -->
+    <section id="sobre" class="py-20 px-4 grid-pattern relative">
+        <div class="max-w-7xl mx-auto reveal">
+            <div class="text-center mb-16">
+                <span class="inline-block px-4 py-1.5 rounded-full text-xs font-semibold bg-[#4361ee]/15 text-[#4cc9f0] border border-[#4361ee]/20 mb-4">SOBRE O DCOM</span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Quem Somos</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-[#4361ee] to-[#7209b5] mx-auto rounded-full"></div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass rounded-2xl p-8 card-hover">
+                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-[#4361ee] to-[#7209b5] flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Nossa Missão</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        O Departamento de Computação do Instituto Federal de Educação, Ciência e Tecnologia de Mato Grosso oferece uma variedade de cursos de graduação para aqueles que desejam seguir carreira na área de computação.
+                    </p>
+                </div>
+                <div class="glass rounded-2xl p-8 card-hover">
+                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-[#4cc9f0] to-[#4361ee] flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Nossa Visão</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Esses cursos proporcionam uma formação abrangente e atualizada, preparando os estudantes para atuarem em diferentes campos e desafios da computação. O Departamento de Computação valoriza o ensino de qualidade, a prática laboratorial e o desenvolvimento de habilidades técnicas e analíticas, proporcionando aos alunos uma base sólida para o mercado de trabalho e possíveis especializações futuras.
+                    </p>
+                </div>
+            </div>
+            <!-- Courses cards -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+                <div class="glass rounded-2xl p-6 text-center card-hover group">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#4361ee]/20 to-[#4361ee]/5 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                        <svg class="w-8 h-8 text-[#4361ee]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>
+                    </div>
+                    <h4 class="font-bold text-sm mb-2">Engenharia da Computação</h4>
+                    <p class="text-xs text-gray-500">Bacharelado</p>
+                </div>
+                <div class="glass rounded-2xl p-6 text-center card-hover group">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#7209b5]/20 to-[#7209b5]/5 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                        <svg class="w-8 h-8 text-[#7209b5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                    </div>
+                    <h4 class="font-bold text-sm mb-2">Sistemas para Internet</h4>
+                    <p class="text-xs text-gray-500">Tecnólogo</p>
+                </div>
+                <div class="glass rounded-2xl p-6 text-center card-hover group">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#4cc9f0]/20 to-[#4cc9f0]/5 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                        <svg class="w-8 h-8 text-[#4cc9f0]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+                    </div>
+                    <h4 class="font-bold text-sm mb-2">Redes de Computadores</h4>
+                    <p class="text-xs text-gray-500">Tecnólogo</p>
+                </div>
+                <div class="glass rounded-2xl p-6 text-center card-hover group">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#f72585]/20 to-[#f72585]/5 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                        <svg class="w-8 h-8 text-[#f72585]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                    </div>
+                    <h4 class="font-bold text-sm mb-2">Informática</h4>
+                    <p class="text-xs text-gray-500">Técnico Integrado</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contato" class="py-20 px-4 relative">
+        <div class="absolute inset-0 bg-gradient-to-b from-[#4361ee]/5 to-transparent"></div>
+        <div class="max-w-7xl mx-auto relative reveal">
+            <div class="text-center mb-16">
+                <span class="inline-block px-4 py-1.5 rounded-full text-xs font-semibold bg-[#4361ee]/15 text-[#4cc9f0] border border-[#4361ee]/20 mb-4">FALE CONOSCO</span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Atendimento</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-[#4361ee] to-[#7209b5] mx-auto rounded-full"></div>
+            </div>
+            <div class="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                <div class="glass rounded-2xl p-8 text-center card-hover">
+                    <div class="w-14 h-14 rounded-xl bg-[#4361ee]/15 flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-7 h-7 text-[#4cc9f0]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <h4 class="font-bold mb-2">Horário</h4>
+                    <p class="text-sm text-gray-400">07h às 21h</p>
+                    <p class="text-xs text-gray-500 mt-1">Segunda a Sexta-feira</p>
+                </div>
+                <div class="glass rounded-2xl p-8 text-center card-hover">
+                    <div class="w-14 h-14 rounded-xl bg-[#7209b5]/15 flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-7 h-7 text-[#7209b5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    </div>
+                    <h4 class="font-bold mb-2">Email</h4>
+                    <a href="mailto:dcom.cba@ifmt.edu.br" class="text-sm text-[#4cc9f0] hover:underline break-all">dcom.cba@ifmt.edu.br</a>
+                    <p class="text-xs text-gray-500 mt-2">
+                        <a href="mailto:secretariadcom.cba@ifmt.edu.br" class="text-[#4cc9f0] hover:underline break-all">secretariadcom.cba@ifmt.edu.br</a>
+                    </p>
+                </div>
+                <div class="glass rounded-2xl p-8 text-center card-hover">
+                    <div class="w-14 h-14 rounded-xl bg-[#4cc9f0]/15 flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-7 h-7 text-[#4cc9f0]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                    </div>
+                    <h4 class="font-bold mb-2">Telefone</h4>
+                    <a href="tel:+5565981630084" class="text-sm text-[#4cc9f0] hover:underline">(65) 9 8163-0084</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Staff Section -->
+    <section id="equipe" class="py-20 px-4 grid-pattern">
+        <div class="max-w-7xl mx-auto reveal">
+            <div class="text-center mb-16">
+                <span class="inline-block px-4 py-1.5 rounded-full text-xs font-semibold bg-[#4361ee]/15 text-[#4cc9f0] border border-[#4361ee]/20 mb-4">EQUIPE ADMINISTRATIVA</span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Servidores do DCOM</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-[#4361ee] to-[#7209b5] mx-auto rounded-full"></div>
+            </div>
+            <div class="overflow-x-auto rounded-2xl glass">
                 <table class="custom-table">
                     <thead>
                         <tr>
@@ -421,46 +399,46 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><strong>Chefe de Departamento</strong></td>
-                            <td>Juliana Fonseca Antunes</td>
-                            <td><a href="mailto:juliana.antunes@ifmt.edu.br" class="text-green-600 hover:underline">juliana.antunes@ifmt.edu.br</a></td>
-                            <td>(65) 9 8157 2883</td>
-                            <td>Seg-Sex – 07h30 às 13h e 14h às 19h30</td>
+                            <td><span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[#4361ee]/20 text-[#4cc9f0]">Chefe de Departamento</span></td>
+                            <td class="font-medium text-white">Juliana Fonseca Antunes</td>
+                            <td><a href="mailto:juliana.antunes@ifmt.edu.br" class="text-[#4cc9f0] hover:underline text-xs">juliana.antunes@ifmt.edu.br</a></td>
+                            <td class="whitespace-nowrap">(65) 9 8157-2883</td>
+                            <td class="text-xs">Seg a Sex — 07h30 às 13h e 14:00 às 19h30</td>
                         </tr>
                         <tr>
-                            <td><strong>Coordenadora Geral</strong></td>
-                            <td>Rairene Fagundes</td>
-                            <td><a href="mailto:rairene.fagundes@ifmt.edu.br" class="text-green-600 hover:underline">rairene.fagundes@ifmt.edu.br</a></td>
+                            <td><span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[#7209b5]/20 text-[#c77dff]">Coordenadora Geral</span></td>
+                            <td class="font-medium text-white">Rairene Fagundes</td>
+                            <td><a href="mailto:rairene.fagundes@ifmt.edu.br" class="text-[#4cc9f0] hover:underline text-xs">rairene.fagundes@ifmt.edu.br</a></td>
                             <td>(65) 98163-0084</td>
-                            <td>Seg-Sex – 08h às 12h e 13h às 17h</td>
+                            <td class="text-xs">Seg a Sex — 08h às 12h e 13h às 17h</td>
                         </tr>
                         <tr>
-                            <td><strong>Técnico Administrativo</strong></td>
-                            <td>Carlos Augusto Paraba Veloso</td>
-                            <td><a href="mailto:carlos.veloso@ifmt.edu.br" class="text-green-600 hover:underline">carlos.veloso@ifmt.edu.br</a></td>
+                            <td><span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[#4cc9f0]/20 text-[#4cc9f0]">Técnico Administrativo</span></td>
+                            <td class="font-medium text-white">Carlos Augusto Paraba Veloso</td>
+                            <td><a href="mailto:carlos.veloso@ifmt.edu.br" class="text-[#4cc9f0] hover:underline text-xs">carlos.veloso@ifmt.edu.br</a></td>
                             <td>(65) 98163-0084</td>
-                            <td>Seg-Sex – 15h às 21h</td>
+                            <td class="text-xs">Seg a Sex — 15:00h às 21h00</td>
                         </tr>
                         <tr>
-                            <td><strong>Técnico Administrativo</strong></td>
-                            <td>Ana Cláudia Pinto</td>
-                            <td><a href="mailto:ana.pinto@ifmt.edu.br" class="text-green-600 hover:underline">ana.pinto@ifmt.edu.br</a></td>
+                            <td><span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[#4cc9f0]/20 text-[#4cc9f0]">Técnico Administrativo</span></td>
+                            <td class="font-medium text-white">Ana Cláudia Pinto</td>
+                            <td><a href="mailto:ana.pinto@ifmt.edu.br" class="text-[#4cc9f0] hover:underline text-xs">ana.pinto@ifmt.edu.br</a></td>
                             <td>(65) 98163-0084</td>
-                            <td>Seg-Sex – 07h às 13h</td>
+                            <td class="text-xs">Seg a Sex — 07h às 13h</td>
                         </tr>
                         <tr>
-                            <td><strong>Pedagoga</strong></td>
-                            <td>Olgda Laria Borges de Paula</td>
-                            <td><a href="mailto:olgda.paula@ifmt.edu.br" class="text-green-600 hover:underline">olgda.paula@ifmt.edu.br</a></td>
+                            <td><span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[#f72585]/20 text-[#f72585]">Pedagoga</span></td>
+                            <td class="font-medium text-white">Olgda Laria Borges de Paula</td>
+                            <td><a href="mailto:olgda.paula@ifmt.edu.br" class="text-[#4cc9f0] hover:underline text-xs">olgda.paula@ifmt.edu.br</a></td>
                             <td>(65) 98163-0084</td>
-                            <td>Seg-Sex – 07h às 13h</td>
+                            <td class="text-xs">Seg a Sex — 07h00 às 13h00</td>
                         </tr>
                         <tr>
-                            <td><strong>Técnico de Laboratório</strong></td>
-                            <td>Josue Francisco do Nascimento Junior</td>
-                            <td><a href="mailto:nascimento.junior@ifmt.edu.br" class="text-green-600 hover:underline">nascimento.junior@ifmt.edu.br</a></td>
-                            <td>-</td>
-                            <td>Seg: 07:30-11:30h | Ter: 13h-19h | Qua: 07:30-13:30h | Qui-Sex: 09h-15h</td>
+                            <td><span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[#4cc9f0]/20 text-[#4cc9f0]">Técnico de Laboratório</span></td>
+                            <td class="font-medium text-white">Josue Francisco do Nascimento Junior</td>
+                            <td><a href="mailto:nascimento.junior@ifmt.edu.br" class="text-[#4cc9f0] hover:underline text-xs">nascimento.junior@ifmt.edu.br</a></td>
+                            <td>—</td>
+                            <td class="text-xs">Seg: 07:30-11:30 | Ter: 13-19h | Qua: 07:30-13:30 | Qui-Sex: 09-15h</td>
                         </tr>
                     </tbody>
                 </table>
@@ -468,330 +446,162 @@
         </div>
     </section>
 
-    <!-- Coordenações de Curso Section -->
-    <section id="cursos" class="py-16 bg-white">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="section-title">Coordenações de Curso</h2>
-            <div class="table-container fade-in">
-                <table class="custom-table">
-                    <thead>
-                        <tr>
-                            <th>Curso</th>
-                            <th>Coordenador</th>
-                            <th>Email</th>
-                            <th>Telefone</th>
-                            <th>Horário de Atendimento</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Técnico em Informática Integrado ao Ensino Médio</strong></td>
-                            <td>Eduardo Nunes Maciel</td>
-                            <td><a href="mailto:tecinformatica.cba@ifmt.edu.br" class="text-green-600 hover:underline">tecinformatica.cba@ifmt.edu.br</a></td>
-                            <td>(65) 99800-0764</td>
-                            <td>Seg-Ter: 07h-12h | Qua-Sex: 13h-17h</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Engenharia da Computação</strong></td>
-                            <td>Alberto Sales</td>
-                            <td><a href="mailto:gradengcomputacao.cba@ifmt.edu.br" class="text-green-600 hover:underline">gradengcomputacao.cba@ifmt.edu.br</a></td>
-                            <td>(65) 99273-1771</td>
-                            <td>Seg-Qua: 13h-17h30 | Qui: 16h-18h50</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Tecnologia em Sistemas para Internet</strong></td>
-                            <td>Orlando P. Santana Junior</td>
-                            <td><a href="mailto:gradsistemas.cba@ifmt.edu.br" class="text-green-600 hover:underline">gradsistemas.cba@ifmt.edu.br</a></td>
-                            <td>(65) 98145-8145</td>
-                            <td>Seg-Sex: 18h30-22h</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Tecnologia em Rede de Computadores</strong></td>
-                            <td>Antônio Cezar Santos Goncalves</td>
-                            <td><a href="mailto:gradredes.cba@ifmt.edu.br" class="text-green-600 hover:underline">gradredes.cba@ifmt.edu.br</a></td>
-                            <td>(65) 98148-5281</td>
-                            <td>Seg-Sex: 07h-12h</td>
-                        </tr>
-                    </tbody>
-                </table>
+    <!-- Courses Section -->
+    <section id="cursos" class="py-20 px-4 relative">
+        <div class="absolute inset-0 bg-gradient-to-b from-[#7209b5]/5 to-transparent"></div>
+        <div class="max-w-7xl mx-auto relative reveal">
+            <div class="text-center mb-16">
+                <span class="inline-block px-4 py-1.5 rounded-full text-xs font-semibold bg-[#7209b5]/15 text-[#c77dff] border border-[#7209b5]/20 mb-4">COORDENAÇÃO</span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Cursos e Coordenadores</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-[#4361ee] to-[#7209b5] mx-auto rounded-full"></div>
             </div>
-            
-            <!-- Course Cards -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
-                <div class="card p-6 fade-in">
-                    <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                        <i class="fas fa-laptop-code text-2xl text-green-600"></i>
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Course 1 -->
+                <div class="glass rounded-2xl p-8 card-hover border-l-4 border-[#4361ee]">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-[#4361ee]/15 flex items-center justify-center flex-shrink-0">
+                            <svg class="w-6 h-6 text-[#4361ee]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white text-lg">Técnico em Informática Integrado ao Ensino Médio</h3>
+                            <span class="text-xs text-gray-500">Curso Técnico</span>
+                        </div>
                     </div>
-                    <h3 class="font-bold text-lg mb-2">Técnico em Informática</h3>
-                    <p class="text-gray-600 text-sm">Integrado ao Ensino Médio</p>
-                </div>
-                <div class="card p-6 fade-in">
-                    <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-                        <i class="fas fa-microchip text-2xl text-blue-600"></i>
+                    <div class="space-y-2 text-sm text-gray-400">
+                        <p><span class="text-gray-300 font-medium">Coordenador:</span> Eduardo Nunes Maciel</p>
+                        <p><span class="text-gray-300 font-medium">Email:</span> <a href="mailto:tecinformatica.cba@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">tecinformatica.cba@ifmt.edu.br</a></p>
+                        <p><span class="text-gray-300 font-medium">Telefone:</span> (65) 99800-0764</p>
+                        <p><span class="text-gray-300 font-medium">Horário:</span> Seg-Ter 07h-12h | Qua-Sex 13h-17h</p>
                     </div>
-                    <h3 class="font-bold text-lg mb-2">Engenharia da Computação</h3>
-                    <p class="text-gray-600 text-sm">Bacharelado</p>
                 </div>
-                <div class="card p-6 fade-in">
-                    <div class="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center mb-4">
-                        <i class="fas fa-globe text-2xl text-purple-600"></i>
+                <!-- Course 2 -->
+                <div class="glass rounded-2xl p-8 card-hover border-l-4 border-[#7209b5]">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-[#7209b5]/15 flex items-center justify-center flex-shrink-0">
+                            <svg class="w-6 h-6 text-[#7209b5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white text-lg">Engenharia da Computação</h3>
+                            <span class="text-xs text-gray-500">Bacharelado</span>
+                        </div>
                     </div>
-                    <h3 class="font-bold text-lg mb-2">Sistemas para Internet</h3>
-                    <p class="text-gray-600 text-sm">Tecnólogo</p>
-                </div>
-                <div class="card p-6 fade-in">
-                    <div class="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mb-4">
-                        <i class="fas fa-network-wired text-2xl text-orange-600"></i>
+                    <div class="space-y-2 text-sm text-gray-400">
+                        <p><span class="text-gray-300 font-medium">Coordenador:</span> Alberto Sales</p>
+                        <p><span class="text-gray-300 font-medium">Email:</span> <a href="mailto:gradengcomputacao.cba@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">gradengcomputacao.cba@ifmt.edu.br</a></p>
+                        <p><span class="text-gray-300 font-medium">Telefone:</span> (65) 99273-1771</p>
+                        <p><span class="text-gray-300 font-medium">Horário:</span> Seg-Qua 13h-17:30 | Qui 16h-18:50</p>
                     </div>
-                    <h3 class="font-bold text-lg mb-2">Redes de Computadores</h3>
-                    <p class="text-gray-600 text-sm">Tecnólogo</p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Docentes Section -->
-    <section id="docentes" class="py-16 bg-gray-50">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="section-title">Corpo Docente</h2>
-            <p class="text-gray-600 mb-8 text-center">Nossa equipe de professores qualificados está pronta para oferecer o melhor ensino em computação.</p>
-            <div class="faculty-grid fade-in">
-                <div class="faculty-card">
-                    <div class="title">Msc.</div>
-                    <div class="name">Alberto Sales e Silva</div>
-                    <div class="email"><a href="mailto:alberto.sales@ifmt.edu.br" class="text-green-600 hover:underline">alberto.sales@ifmt.edu.br</a></div>
+                <!-- Course 3 -->
+                <div class="glass rounded-2xl p-8 card-hover border-l-4 border-[#4cc9f0]">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-[#4cc9f0]/15 flex items-center justify-center flex-shrink-0">
+                            <svg class="w-6 h-6 text-[#4cc9f0]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white text-lg">Tecnologia em Sistemas para Internet</h3>
+                            <span class="text-xs text-gray-500">Tecnólogo</span>
+                        </div>
+                    </div>
+                    <div class="space-y-2 text-sm text-gray-400">
+                        <p><span class="text-gray-300 font-medium">Coordenador:</span> Orlando P. Santana Junior</p>
+                        <p><span class="text-gray-300 font-medium">Email:</span> <a href="mailto:gradsistemas.cba@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">gradsistemas.cba@ifmt.edu.br</a></p>
+                        <p><span class="text-gray-300 font-medium">Telefone:</span> (65) 98145-8145</p>
+                        <p><span class="text-gray-300 font-medium">Horário:</span> Seg a Sex 18:30-22:00</p>
+                    </div>
                 </div>
-                <div class="faculty-card">
-                    <div class="title">Dr.</div>
-                    <div class="name">Aldo Antonio Vieira da Silva</div>
-                    <div class="email"><a href="mailto:aldo.silva@ifmt.edu.br" class="text-green-600 hover:underline">aldo.silva@ifmt.edu.br</a></div>
-                </div>
-                <div class="faculty-card">
-                    <div class="title">Msc.</div>
-                    <div class="name">Alexandre Torrezam</div>
-                    <div class="email"><a href="mailto:alexandre.torrezam@ifmt.edu.br" class="text-green-600 hover:underline">alexandre.torrezam@ifmt.edu.br</a></div>
-                </div>
-                <div class="faculty-card">
-                    <div class="title">Dr.</div>
-                    <div class="name">Andre Valente do Couto</div>
-                    <div class="email"><a href="mailto:andre.valente@ifmt.edu.br" class="text-green-600 hover:underline">andre.valente@ifmt.edu.br</a></div>
-                </div>
-                <div class="faculty-card">
-                    <div class="title">Esp.</div>
-                    <div class="name">Antonio Cezar Santos Goncalves</div>
-                    <div class="email"><a href="mailto:antonio.goncalves@ifmt.edu.br" class="text-green-600 hover:underline">antonio.goncalves@ifmt.edu.br</a></div>
-                </div>
-                <div class="faculty-card">
-                    <div class="title">Dr.</div>
-                    <div class="name">Clodoaldo Nunes (in memoriam)</div>
-                    <div class="email">-</div>
-                </div>
-                <div class="faculty-card">
-                    <div class="title">Dr.</div>
-                    <div class="name">Constantino Dias da Cruz Neto</div>
-                    <div class="email"><a href="mailto:constantino.neto@ifmt.edu.br" class="text-green-600 hover:underline">constantino.neto@ifmt.edu.br</a></div>
-                </div>
-                <div class="faculty-card">
-                    <div class="title">Msc.</div>
-                    <div class="name">Custodio Gastao da Silva Junior</div>
-                    <div class="email"><a href="mailto:custodio.silva@ifmt.edu.br" class="text-green-600 hover:underline">custodio.silva@ifmt.edu.br</a></div>
-                </div>
-                <div class="faculty-card">
-                    <div class="title">Dr.</div>
-                    <div class="name">Ed Wilson Tavares Ferreira</div>
-                    <div class="email"><a href="mailto:edwilson.ferreira@ifmt.edu.br" class="text-green-600 hover:underline">edwilson.ferreira@ifmt.edu.br</a></div>
-                </div>
-                <div class="faculty-card">
-                    <div class="title">Msc.</div>
-                    <div class="name">Erica Bussiki Figueiredo</div>
-                    <div class="email"><a href="mailto:erica.bussiki@ifmt.edu.br" class="text-green-600 hover:underline">erica.bussiki@ifmt.edu.br</a></div>
-                </div>
-                <div class="faculty-card">
-                    <div class="title">Dr.</div>
-                    <div class="name">Evandro Cesar Freiberger</div>
-                    <div class="email"><a href="mailto:evandro.freiberger@ifmt.edu.br" class="text-green-600 hover:underline">evandro.freiberger@ifmt.edu.br</a></div>
-                </div>
-                <div class="faculty-card">
-                    <div class="title">Dr.</div>
-                    <div class="name">Gerson Kazuyoshi Kida</div>
-                    <div class="email"><a href="mailto:gerson.kida@ifmt.edu.br" class="text-green-600 hover:underline">gerson.kida@ifmt.edu.br</a></div>
-                </div>
-                <div class="faculty-card">
-                    <div class="title">Esp.</div>
-                    <div class="name">Giuliano Robledo Zucoloto Moreira</div>
-                    <div class="email"><a href="mailto:giuliano.moreira@ifmt.edu.br" class="text-green-600 hover:underline">giuliano.moreira@ifmt.edu.br</a></div>
-                </div>
-                <div class="faculty-card">
-                    <div class="title">Msc.</div>
-                    <div class="name">Guilherme Pires Silva de Almeida</div>
-                    <div class="email"><a href="mailto:guilherme.almeida@ifmt.edu.br" class="text-green-600 hover:underline">guilherme.almeida@ifmt.edu.br</a></div>
-                </div>
-                <div class="faculty-card">
-                    <div class="title">Esp.</div>
-                    <div class="name">Heloise de Souza Bastos</div>
-                    <div class="email"><a href="mailto:heloise.bastos@ifmt.edu.br" class="text-green-600 hover:underline">heloise.bastos@ifmt.edu.br</a></div>
-                </div>
-                <div class="faculty-card">
-                    <div class="title">Dra.</div>
-                    <div class="name">Inara Aparecida Ferrer Silva</div>
-                    <div class="email"><a href="mailto:inara.ferrer@ifmt.edu.br" class="text-green-600 hover:underline">inara.ferrer@ifmt.edu.br</a></div>
-                </div>
-                <div class="faculty-card">
-                    <div class="title">Dr.</div>
-                    <div class="name">Joao Paulo Delgado Preti</div>
-                    <div class="email"><a href="mailto:preti.joao@ifmt.edu.br" class="text-green-600 hover:underline">preti.joao@ifmt.edu.br</a></div>
-                </div>
-                <div class="faculty-card">
-                    <div class="title">Dra.</div>
-                    <div class="name">Juliana Fonseca Antunes</div>
-                    <div class="email"><a href="mailto:juliana.antunes@ifmt.edu.br" class="text-green-600 hover:underline">juliana.antunes@ifmt.edu.br</a></div>
-                </div>
-                <div class="faculty-card">
-                    <div class="title">Dra.</div>
-                    <div class="name">Juliana Saragiotto Silva</div>
-                    <div class="email"><a href="mailto:juliana.silva@ifmt.edu.br" class="text-green-600 hover:underline">juliana.silva@ifmt.edu.br</a></div>
-                </div>
-                <div class="faculty-card">
-                    <div class="title">Esp.</div>
-                    <div class="name">Marilson Oliveira Correa</div>
-                    <div class="email"><a href="mailto:marilson.correa@ifmt.edu.br" class="text-green-600 hover:underline">marilson.correa@ifmt.edu.br</a></div>
-                </div>
-                <div class="faculty-card">
-                    <div class="title">Msc.</div>
-                    <div class="name">Mauricio Prado Catharino</div>
-                    <div class="email"><a href="mailto:mauricio.prado@ifmt.edu.br" class="text-green-600 hover:underline">mauricio.prado@ifmt.edu.br</a></div>
-                </div>
-                <div class="faculty-card">
-                    <div class="title">Msc.</div>
-                    <div class="name">Matheus Candido Teixeira</div>
-                    <div class="email"><a href="mailto:matheus.candido@ifmt.edu.br" class="text-green-600 hover:underline">matheus.candido@ifmt.edu.br</a></div>
-                </div>
-                <div class="faculty-card">
-                    <div class="title">Dra.</div>
-                    <div class="name">Monica Cristiane Moreira Crispim Lins</div>
-                    <div class="email"><a href="mailto:monica.cristiane@ifmt.edu.br" class="text-green-600 hover:underline">monica.cristiane@ifmt.edu.br</a></div>
-                </div>
-                <div class="faculty-card">
-                    <div class="title">Msc.</div>
-                    <div class="name">Orlando Pereira Santana Junior</div>
-                    <div class="email"><a href="mailto:orlando.junior@ifmt.edu.br" class="text-green-600 hover:underline">orlando.junior@ifmt.edu.br</a></div>
-                </div>
-                <div class="faculty-card">
-                    <div class="title">Esp.</div>
-                    <div class="name">Paulo Henrique Bueno Lopes</div>
-                    <div class="email"><a href="mailto:paulo.lopes@ifmt.edu.br" class="text-green-600 hover:underline">paulo.lopes@ifmt.edu.br</a></div>
-                </div>
-                <div class="faculty-card">
-                    <div class="title">Msc.</div>
-                    <div class="name">Pedro Clarindo da Silva Neto</div>
-                    <div class="email"><a href="mailto:pedro.neto@ifmt.edu.br" class="text-green-600 hover:underline">pedro.neto@ifmt.edu.br</a></div>
-                </div>
-                <div class="faculty-card">
-                    <div class="title">Msc.</div>
-                    <div class="name">Rafael Sanches Rocha</div>
-                    <div class="email"><a href="mailto:rafael.rocha@ifmt.edu.br" class="text-green-600 hover:underline">rafael.rocha@ifmt.edu.br</a></div>
-                </div>
-                <div class="faculty-card">
-                    <div class="title">Dr.</div>
-                    <div class="name">Reginaldo Hugo Szezupior dos Santos</div>
-                    <div class="email"><a href="mailto:reginaldo.santos@ifmt.edu.br" class="text-green-600 hover:underline">reginaldo.santos@ifmt.edu.br</a></div>
-                </div>
-                <div class="faculty-card">
-                    <div class="title">Dr.</div>
-                    <div class="name">Rothschild Alencastro Antunes</div>
-                    <div class="email"><a href="mailto:rothschild.antunes@ifmt.edu.br" class="text-green-600 hover:underline">rothschild.antunes@ifmt.edu.br</a></div>
-                </div>
-                <div class="faculty-card">
-                    <div class="title">Dr.</div>
-                    <div class="name">Ruy de Oliveira</div>
-                    <div class="email"><a href="mailto:ruy.oliveira@ifmt.edu.br" class="text-green-600 hover:underline">ruy.oliveira@ifmt.edu.br</a></div>
-                </div>
-                <div class="faculty-card">
-                    <div class="title">Msc.</div>
-                    <div class="name">Tiago de Almeida Lacerda</div>
-                    <div class="email"><a href="mailto:tiago.lacerda@ifmt.edu.br" class="text-green-600 hover:underline">tiago.lacerda@ifmt.edu.br</a></div>
-                </div>
-                <div class="faculty-card">
-                    <div class="title">Dr.</div>
-                    <div class="name">Valtemir Emerencio do Nascimento</div>
-                    <div class="email"><a href="mailto:valtemir.nascimento@ifmt.edu.br" class="text-green-600 hover:underline">valtemir.nascimento@ifmt.edu.br</a></div>
-                </div>
-                <div class="faculty-card">
-                    <div class="title">Msc.</div>
-                    <div class="name">Waldinei Bispo de Lima</div>
-                    <div class="email"><a href="mailto:waldinei.bispo@ifmt.edu.br" class="text-green-600 hover:underline">waldinei.bispo@ifmt.edu.br</a></div>
+                <!-- Course 4 -->
+                <div class="glass rounded-2xl p-8 card-hover border-l-4 border-[#f72585]">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-[#f72585]/15 flex items-center justify-center flex-shrink-0">
+                            <svg class="w-6 h-6 text-[#f72585]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.858 15.355-5.858 21.213 0"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white text-lg">Tecnologia em Redes de Computadores</h3>
+                            <span class="text-xs text-gray-500">Tecnólogo</span>
+                        </div>
+                    </div>
+                    <div class="space-y-2 text-sm text-gray-400">
+                        <p><span class="text-gray-300 font-medium">Coordenador:</span> Antônio Cezar Santos Goncalves</p>
+                        <p><span class="text-gray-300 font-medium">Email:</span> <a href="mailto:gradredes.cba@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">gradredes.cba@ifmt.edu.br</a></p>
+                        <p><span class="text-gray-300 font-medium">Telefone:</span> (65) 98148-5281</p>
+                        <p><span class="text-gray-300 font-medium">Horário:</span> Seg a Sex 07h-12h</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contato Section -->
-    <section id="contato" class="py-16 bg-white">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="section-title">Contato e Atendimento</h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="contact-info fade-in">
-                    <h3 class="text-2xl font-bold mb-6">Informações de Contato</h3>
-                    <div class="contact-item">
-                        <i class="fas fa-clock"></i>
-                        <div>
-                            <h4 class="font-bold">Horário de Atendimento</h4>
-                            <p>07h às 21h - Segunda a Sexta-feira</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <h4 class="font-bold">E-mails</h4>
-                            <p><a href="mailto:dcom.cba@ifmt.edu.br" class="hover:underline">dcom.cba@ifmt.edu.br</a></p>
-                            <p><a href="mailto:secretariadcom.cba@ifmt.edu.br" class="hover:underline">secretariadcom.cba@ifmt.edu.br</a></p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <div>
-                            <h4 class="font-bold">Telefone</h4>
-                            <p>(65) 9 8163 0084</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <h4 class="font-bold">Endereço</h4>
-                            <p>IFMT Campus Cuiabá - Cel. Octayde Jorge da Silva</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="fade-in">
-                    <div class="card p-8">
-                        <h3 class="text-2xl font-bold text-green-700 mb-6">Envie uma Mensagem</h3>
-                        <form id="contactForm" onsubmit="submitForm(event)">
-                            <div class="mb-4">
-                                <label class="block text-gray-700 font-semibold mb-2">Nome Completo</label>
-                                <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-green-500" required>
+    <!-- Professors Section -->
+    <section id="professores" class="py-20 px-4 grid-pattern">
+        <div class="max-w-7xl mx-auto reveal">
+            <div class="text-center mb-16">
+                <span class="inline-block px-4 py-1.5 rounded-full text-xs font-semibold bg-[#4361ee]/15 text-[#4cc9f0] border border-[#4361ee]/20 mb-4">CORPO DOCENTE</span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Professores do DCOM</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-[#4361ee] to-[#7209b5] mx-auto rounded-full"></div>
+                <p class="text-gray-400 mt-4 max-w-xl mx-auto">Conheça os professores que compõem o corpo docente do Departamento de Computação.</p>
+            </div>
+
+            <!-- Accordion -->
+            <div class="max-w-4xl mx-auto">
+                <div class="glass rounded-2xl overflow-hidden">
+                    <div class="accordion-header flex items-center justify-between p-6" onclick="toggleAccordion(this)">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-[#4361ee] to-[#7209b5] flex items-center justify-center">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
                             </div>
-                            <div class="mb-4">
-                                <label class="block text-gray-700 font-semibold mb-2">E-mail</label>
-                                <input type="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-green-500" required>
-                            </div>
-                            <div class="mb-4">
-                                <label class="block text-gray-700 font-semibold mb-2">Assunto</label>
-                                <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-green-500">
-                                    <option>Informações Gerais</option>
-                                    <option>Cursos</option>
-                                    <option>Secretaria</option>
-                                    <option>Outros</option>
-                                </select>
-                            </div>
-                            <div class="mb-6">
-                                <label class="block text-gray-700 font-semibold mb-2">Mensagem</label>
-                                <textarea class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-green-500 h-32" required></textarea>
-                            </div>
-                            <button type="submit" class="w-full bg-green-700 text-white py-3 rounded-lg font-semibold hover:bg-green-800 transition">
-                                <i class="fas fa-paper-plane mr-2"></i>Enviar Mensagem
-                            </button>
-                        </form>
+                            <span class="font-bold text-lg">Lista de Professores</span>
+                            <span class="text-xs text-gray-500 ml-2">(33 docentes)</span>
+                        </div>
+                        <svg class="accordion-arrow w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="px-6 pb-6 overflow-x-auto">
+                            <table class="custom-table prof-table">
+                                <thead>
+                                    <tr>
+                                        <th>Título</th>
+                                        <th>Nome</th>
+                                        <th>Email</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td class="text-[#4cc9f0] font-medium">Msc.</td><td class="text-white font-medium">Alberto Sales e Silva</td><td><a href="mailto:alberto.sales@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">alberto.sales@ifmt.edu.br</a></td></tr>
+                                    <tr><td class="text-[#f72585] font-medium">Dr.</td><td class="text-white font-medium">Aldo Antonio Vieira da Silva</td><td><a href="mailto:aldo.silva@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">aldo.silva@ifmt.edu.br</a></td></tr>
+                                    <tr><td class="text-[#4cc9f0] font-medium">Msc.</td><td class="text-white font-medium">Alexandre Torrezam</td><td><a href="mailto:alexandre.torrezam@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">alexandre.torrezam@ifmt.edu.br</a></td></tr>
+                                    <tr><td class="text-[#f72585] font-medium">Dr.</td><td class="text-white font-medium">Andre Valente do Couto</td><td><a href="mailto:andre.valente@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">andre.valente@ifmt.edu.br</a></td></tr>
+                                    <tr><td class="text-[#c77dff] font-medium">Esp.</td><td class="text-white font-medium">Antonio Cezar Santos Goncalves</td><td><a href="mailto:antonio.goncalves@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">antonio.goncalves@ifmt.edu.br</a></td></tr>
+                                    <tr><td class="text-[#f72585] font-medium">Dr.</td><td class="text-white font-medium"><em>Clodoaldo Nunes (in memoriam)</em></td><td>—</td></tr>
+                                    <tr><td class="text-[#f72585] font-medium">Dr.</td><td class="text-white font-medium">Constantino Dias da Cruz Neto</td><td><a href="mailto:constantino.neto@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">constantino.neto@ifmt.edu.br</a></td></tr>
+                                    <tr><td class="text-[#4cc9f0] font-medium">Msc.</td><td class="text-white font-medium">Custodio Gastao da Silva Junior</td><td><a href="mailto:custodio.silva@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">custodio.silva@ifmt.edu.br</a></td></tr>
+                                    <tr><td class="text-[#f72585] font-medium">Dr.</td><td class="text-white font-medium">Ed Wilson Tavares Ferreira</td><td><a href="mailto:edwilson.ferreira@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">edwilson.ferreira@ifmt.edu.br</a></td></tr>
+                                    <tr><td class="text-[#4cc9f0] font-medium">Msc.</td><td class="text-white font-medium">Erica Bussiki Figueiredo</td><td><a href="mailto:erica.bussiki@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">erica.bussiki@ifmt.edu.br</a></td></tr>
+                                    <tr><td class="text-[#f72585] font-medium">Dr.</td><td class="text-white font-medium">Evandro Cesar Freiberger</td><td><a href="mailto:evandro.freiberger@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">evandro.freiberger@ifmt.edu.br</a></td></tr>
+                                    <tr><td class="text-[#f72585] font-medium">Dr.</td><td class="text-white font-medium">Gerson Kazuyoshi Kida</td><td><a href="mailto:gerson.kida@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">gerson.kida@ifmt.edu.br</a></td></tr>
+                                    <tr><td class="text-[#c77dff] font-medium">Esp.</td><td class="text-white font-medium">Giuliano Robledo Zucoloto Moreira</td><td><a href="mailto:giuliano.moreira@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">giuliano.moreira@ifmt.edu.br</a></td></tr>
+                                    <tr><td class="text-[#4cc9f0] font-medium">Msc.</td><td class="text-white font-medium">Guilherme Pires Silva de Almeida</td><td><a href="mailto:guilherme.almeida@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">guilherme.almeida@ifmt.edu.br</a></td></tr>
+                                    <tr><td class="text-[#c77dff] font-medium">Esp.</td><td class="text-white font-medium">Heloise de Souza Bastos</td><td><a href="mailto:heloise.bastos@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">heloise.bastos@ifmt.edu.br</a></td></tr>
+                                    <tr><td class="text-[#f72585] font-medium">Dra.</td><td class="text-white font-medium">Inara Aparecida Ferrer Silva</td><td><a href="mailto:inara.ferrer@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">inara.ferrer@ifmt.edu.br</a></td></tr>
+                                    <tr><td class="text-[#f72585] font-medium">Dr.</td><td class="text-white font-medium">Joao Paulo Delgado Preti</td><td><a href="mailto:preti.joao@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">preti.joao@ifmt.edu.br</a></td></tr>
+                                    <tr><td class="text-[#f72585] font-medium">Dra.</td><td class="text-white font-medium">Juliana Fonseca Antunes</td><td><a href="mailto:juliana.antunes@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">juliana.antunes@ifmt.edu.br</a></td></tr>
+                                    <tr><td class="text-[#f72585] font-medium">Dra.</td><td class="text-white font-medium">Juliana Saragiotto Silva</td><td><a href="mailto:juliana.silva@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">juliana.silva@ifmt.edu.br</a></td></tr>
+                                    <tr><td class="text-[#c77dff] font-medium">Esp.</td><td class="text-white font-medium">Marilson Oliveira Correa</td><td><a href="mailto:marilson.correa@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">marilson.correa@ifmt.edu.br</a></td></tr>
+                                    <tr><td class="text-[#4cc9f0] font-medium">Msc.</td><td class="text-white font-medium">Mauricio Prado Catharino</td><td><a href="mailto:mauricio.prado@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">mauricio.prado@ifmt.edu.br</a></td></tr>
+                                    <tr><td class="text-[#4cc9f0] font-medium">Msc.</td><td class="text-white font-medium">Matheus Candido Teixeira</td><td><a href="mailto:matheus.candido@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">matheus.candido@ifmt.edu.br</a></td></tr>
+                                    <tr><td class="text-[#f72585] font-medium">Dra.</td><td class="text-white font-medium">Monica Cristiane Moreira Crispim Lins</td><td><a href="mailto:monica.cristiane@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">monica.cristiane@ifmt.edu.br</a></td></tr>
+                                    <tr><td class="text-[#4cc9f0] font-medium">Msc.</td><td class="text-white font-medium">Orlando Pereira Santana Junior</td><td><a href="mailto:orlando.junior@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">orlando.junior@ifmt.edu.br</a></td></tr>
+                                    <tr><td class="text-[#c77dff] font-medium">Esp.</td><td class="text-white font-medium">Paulo Henrique Bueno Lopes</td><td><a href="mailto:paulo.lopes@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">paulo.lopes@ifmt.edu.br</a></td></tr>
+                                    <tr><td class="text-[#4cc9f0] font-medium">Msc.</td><td class="text-white font-medium">Pedro Clarindo da Silva Neto</td><td><a href="mailto:pedro.neto@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">pedro.neto@ifmt.edu.br</a></td></tr>
+                                    <tr><td class="text-[#4cc9f0] font-medium">Msc.</td><td class="text-white font-medium">Rafael Sanches Rocha</td><td><a href="mailto:rafael.rocha@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">rafael.rocha@ifmt.edu.br</a></td></tr>
+                                    <tr><td class="text-[#f72585] font-medium">Dr.</td><td class="text-white font-medium">Reginaldo Hugo Szezupior dos Santos</td><td><a href="mailto:reginaldo.santos@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">reginaldo.santos@ifmt.edu.br</a></td></tr>
+                                    <tr><td class="text-[#f72585] font-medium">Dr.</td><td class="text-white font-medium">Rothschild Alencastro Antunes</td><td><a href="mailto:rothschild.antunes@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">rothschild.antunes@ifmt.edu.br</a></td></tr>
+                                    <tr><td class="text-[#f72585] font-medium">Dr.</td><td class="text-white font-medium">Ruy de Oliveira</td><td><a href="mailto:ruy.oliveira@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">ruy.oliveira@ifmt.edu.br</a></td></tr>
+                                    <tr><td class="text-[#4cc9f0] font-medium">Msc.</td><td class="text-white font-medium">Tiago de Almeida Lacerda</td><td><a href="mailto:tiago.lacerda@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">tiago.lacerda@ifmt.edu.br</a></td></tr>
+                                    <tr><td class="text-[#f72585] font-medium">Dr.</td><td class="text-white font-medium">Valtemir Emerencio do Nascimento</td><td><a href="mailto:valtemir.nascimento@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">valtemir.nascimento@ifmt.edu.br</a></td></tr>
+                                    <tr><td class="text-[#4cc9f0] font-medium">Msc.</td><td class="text-white font-medium">Waldinei Bispo de Lima</td><td><a href="mailto:waldinei.bispo@ifmt.edu.br" class="text-[#4cc9f0] hover:underline">waldinei.bispo@ifmt.edu.br</a></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -799,93 +609,129 @@
     </section>
 
     <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>IFMT Campus Cuiabá</h3>
-                <p>Instituto Federal de Educação, Ciência e Tecnologia de Mato Grosso</p>
-                <p class="mt-2">Departamento de Computação - DCOM</p>
+    <footer class="py-12 px-4 border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-[#4361ee] to-[#7209b5] flex items-center justify-center font-bold text-lg">
+                        D
+                    </div>
+                    <div>
+                        <span class="font-bold text-lg">DCOM</span>
+                        <p class="text-xs text-gray-500">Departamento de Computação — IFMT Campus Cuiabá</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-6">
+                    <a href="mailto:dcom.cba@ifmt.edu.br" class="text-gray-400 hover:text-[#4cc9f0] transition-colors text-sm">
+                        dcom.cba@ifmt.edu.br
+                    </a>
+                    <span class="text-gray-600">|</span>
+                    <a href="tel:+5565981630084" class="text-gray-400 hover:text-[#4cc9f0] transition-colors text-sm">
+                        (65) 9 8163-0084
+                    </a>
+                </div>
+                <p class="text-xs text-gray-600">&copy; 2025 DCOM — IFMT. Todos os direitos reservados.</p>
             </div>
-            <div class="footer-section">
-                <h3>Links Rápidos</h3>
-                <a href="#inicio">Início</a>
-                <a href="#sobre">Sobre</a>
-                <a href="#cursos">Cursos</a>
-                <a href="#contato">Contato</a>
-            </div>
-            <div class="footer-section">
-                <h3>Cursos</h3>
-                <a href="#cursos">Técnico em Informática</a>
-                <a href="#cursos">Engenharia da Computação</a>
-                <a href="#cursos">Sistemas para Internet</a>
-                <a href="#cursos">Redes de Computadores</a>
-            </div>
-            <div class="footer-section">
-                <h3>Redes Sociais</h3>
-                <a href="#" class="flex items-center"><i class="fab fa-facebook mr-2"></i> Facebook</a>
-                <a href="#" class="flex items-center"><i class="fab fa-instagram mr-2"></i> Instagram</a>
-                <a href="#" class="flex items-center"><i class="fab fa-youtube mr-2"></i> YouTube</a>
-            </div>
-        </div>
-        <div class="copyright">
-            <p>&copy; 2024 Departamento de Computação - IFMT Campus Cuiabá. Todos os direitos reservados.</p>
         </div>
     </footer>
 
+    <!-- Back to Top Button -->
+    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" 
+            class="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-gradient-to-r from-[#4361ee] to-[#7209b5] flex items-center justify-center shadow-lg shadow-[#4361ee]/25 hover:scale-110 transition-all opacity-0 pointer-events-none z-40">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+    </button>
+
     <script>
-        // Mobile Menu Toggle
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
         function toggleMenu() {
             const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('active');
+            menu.classList.toggle('open');
         }
 
-        // Form Submission
-        function submitForm(event) {
-            event.preventDefault();
-            alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
-            document.getElementById('contactForm').reset();
+        // Accordion toggle
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const arrow = header.querySelector('.accordion-arrow');
+            content.classList.toggle('open');
+            arrow.classList.toggle('rotated');
         }
 
-        // Scroll Animation
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        // Back to top button
+        const backToTopBtn = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                backToTopBtn.style.opacity = '1';
+                backToTopBtn.style.pointerEvents = 'auto';
+            } else {
+                backToTopBtn.style.opacity = '0';
+                backToTopBtn.style.pointerEvents = 'none';
+            }
+        });
 
-        const observer = new IntersectionObserver((entries) => {
+        // Scroll reveal animation
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
 
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
+        revealElements.forEach(el => revealObserver.observe(el));
 
-        // Smooth Scroll for Navigation Links
+        // Floating particles in hero
+        function createParticles() {
+            const hero = document.querySelector('.hero-bg');
+            if (!hero) return;
+            
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                const size = Math.random() * 4 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.background = ['#4361ee', '#7209b5', '#4cc9f0'][Math.floor(Math.random() * 3)];
+                particle.style.animation = `float ${5 + Math.random() * 10}s ease-in-out infinite`;
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                hero.appendChild(particle);
+            }
+        }
+
+        // Add float animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                0%, 100% { transform: translate(0, 0); }
+                25% { transform: translate(${Math.random() * 30 - 15}px, ${Math.random() * 30 - 15}px); }
+                50% { transform: translate(${Math.random() * 30 - 15}px, ${Math.random() * 30 - 15}px); }
+                75% { transform: translate(${Math.random() * 30 - 15}px, ${Math.random() * 30 - 15}px); }
+            }
+        `;
+        document.head.appendChild(style);
+        createParticles();
+
+        // Smooth scroll for nav links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
-        });
-
-        // Header Background on Scroll
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.classList.add('shadow-lg');
-            } else {
-                header.classList.remove('shadow-lg');
-            }
         });
     </script>
 </body>
